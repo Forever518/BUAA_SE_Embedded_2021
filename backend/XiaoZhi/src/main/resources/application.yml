@@ -1,0 +1,15 @@
+# DataSource Config
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/fri01?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 6
+  mvc:
+    static-path-pattern: /map-picture/**
+  resources:
+    static-locations: file:/home/robot/catkin_ws/src/2021_embedded/fri_01/assets/map/view
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**Mapper.xml
+server:
+  port: 8081

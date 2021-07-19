@@ -1,0 +1,6 @@
+{
+  "home": "/home/robot/",
+  "tutorial_home": "catkin_ws/src/wpb_home/wpb_home_tutorials/maps/",
+  "ros_home": "catkin_ws/src/2021_embedded/fri_01/",
+  "spring_url": "http://192.168.43.221:8081/"
+}
