@@ -1,0 +1,39 @@
+stages:
+  - lint
+  - build
+  - serve
+
+lint-job:
+  stage: lint
+  script:
+    - cd ros_web
+    - echo 'lint start'
+  only:
+    - web
+  tags:
+    - ubuntu_try
+
+build-job:
+  stage: build
+  script:
+    - cd ros_web
+    - echo 'build start'
+    - npm install
+    - chmod 777 node_modules/.bin/vue-cli-service
+    - npm run build
+  only:
+    - web
+  tags:
+    - ubuntu_try
+
+serve-job:
+  stage: serve
+  script:
+    - cd ros_web
+    - echo 'serve start'
+    - chmod 777 node_modules/.bin/vue-cli-service
+    - npm run serve
+  only:
+    - web
+  tags:
+    - ubuntu_try

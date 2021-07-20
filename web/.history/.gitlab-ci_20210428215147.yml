@@ -1,0 +1,34 @@
+stages: // 首先按顺序定义有几个步骤。步骤下面的所有job是同步执行的
+  - install
+  - test
+  - build
+
+install-job:
+  stage: install
+  script:
+    - cd ros_web
+    - npm install
+  only:
+    - web
+  tags:
+    - docker
+
+test-job:
+  stage: test  // 属于test的stage
+  script:
+    - cd ros_web
+    - npm run test // 这个job执行的脚本
+  only:
+    - web  // 只监听master分支的代码提交
+  tags:
+    - docker  // 就是上面Please enter the gitlab-ci tags for this runner让你输入的内容 记得要写 不然runner不知道用哪个执行
+
+build-job:
+  stage: build
+  script:
+    - cd ros_web
+    - npm run build
+  only:
+    - web
+  tags:
+    - docker

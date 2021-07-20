@@ -1,0 +1,34 @@
+stages:
+  - lint
+  - build
+  - serve
+
+lint-job:
+  stage: lint
+  script:
+    - cd ros_web
+    - echo 'lint start'
+  only:
+    - web
+  tags:
+    - ubuntu_try
+
+build-job:
+  stage: build
+  script:
+    - cd ros_web
+    - echo 'build start'
+  only:
+    - web
+  tags:
+    - ubuntu_try
+
+serve-job:
+  stage: serve
+  script:
+    - cd ros_web
+    - echo 'serve start'
+  only:
+    - web
+  tags:
+    - ubuntu_try

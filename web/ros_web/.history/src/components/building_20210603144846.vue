@@ -1,0 +1,122 @@
+<template>
+  <div class="bodyBoxOut">
+    <div class="messageBox">
+      <mavon-editor class="markdown"
+        :value="tips"
+        :subfield = "false"    
+        :defaultOpen = "'preview'"
+        :toolbarsFlag = "false"
+        :editable="false"
+        :scrollStyle="false"
+        :boxShadow = "true"
+      ></mavon-editor>
+    </div>
+    <el-row :gutter="20" type="flex" justify="space-around">
+      <el-col :span="4">
+      </el-col>
+      <el-col :span="4">
+        <el-button @click="map_finish">完成建图</el-button>
+      </el-col>
+    </el-row>
+
+    <el-dialog
+      title="地图命名"
+      :visible.sync="dialogVisible"
+      width="30%"
+      :before-close="handleClose">
+      <el-form :model="form" @submit.native.prevent>
+        <el-form-item label="地图名称">
+          <el-input clearable v-model="form.name"></el-input>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="mapName">确 定</el-button>
+      </span>
+    </el-dialog>
+  </div>
+</template>
+
+<script>
+import {post_saveMap, post_renameMap_name} from '../api/request';
+  export default {
+    data() {
+      return {
+        dialogVisible: false,
+        form: {
+          name: '',
+        },
+        tips: '',
+      }
+    },
+    methods: {
+      handleClose(done) {
+        this.$confirm('确认关闭？')
+          .then(() => {
+            this.form.name = '';
+            done();
+          }).catch(()=>{})
+      },
+      mapName() {
+        if (this.form.name.length >= 50) {
+          this.$message.error({
+            message: "地图名称过长！地图名称不应该超过50个字符！",
+            duration: 2 * 1000
+          })
+        } else if (this.form.name.length == 0) {
+          this.$message.error({
+            message: "地图名称不能为空！",
+            duration: 2 * 1000
+          })
+        } else {
+          post_renameMap_name({
+            name: this.form.name,
+          }).then(() => {
+            // if (res.code === 200) {
+            //   this.$router.push({
+            //     name: 'Main',
+            //   })
+            // }else if(res.code === 603) {
+            //   this.$message.error({
+            //     duration: 2 * 1000,
+            //     message: '地图名称不能相同'
+            //   })
+            // }
+            // this.$message.error({
+            //   duration: 2 * 1000,
+            //   message: '地图名称不能相同'
+            // })
+            this.$router.push({
+              name: 'Main',
+            })
+          })
+        }
+        // if (this.form.name.length == 0) {
+        //   this.$message.error('地图名不能为空！');
+        // } else {
+        //   this.dialogVisible = false;
+        //   await this.$message({
+        //     message:'命名成功，地图名为：' + this.form.name,
+        //     type: 'success',
+        //   })
+        //   await this.$message({
+        //     message: '新创建的地图请进行标注',
+        //   })
+        //   this.$router.push({
+        //     name: 'Main',
+        //   })
+        // }
+      },
+      get_tips_data() {
+        this.tips = '## Building Tips';
+      },
+      map_finish() {
+        post_saveMap().then(() => {
+          this.dialogVisible = true;
+        })
+      }
+    },
+    mounted() {
+      this.get_tips_data();
+    }
+  }
+</script>

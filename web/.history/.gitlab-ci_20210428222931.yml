@@ -1,0 +1,39 @@
+image: local-registry.inner.buaaoo.top/image-dev/ubuntu:14.04
+
+stages:
+  - install
+  - test
+  - build
+
+before_script:
+  - apt install nodejs npm
+
+install-job:
+  stage: install
+  script:
+    - cd ros_web
+    - npm install
+  only:
+    - web
+  tags:
+    - docker
+
+test-job:
+  stage: test
+  script:
+    - cd ros_web
+    - npm run test
+  only:
+    - web
+  tags:
+    - docker
+
+build-job:
+  stage: build
+  script:
+    - cd ros_web
+    - npm run build
+  only:
+    - web
+  tags:
+    - docker
