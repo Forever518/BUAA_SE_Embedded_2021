@@ -88,3 +88,10 @@
 + `cicd`脚本在`.gitlab-ci.yml`文件中
 + 单元测试采用`jest`测试框架
 
+## 贡献者
+
+* [refkxh](https://github.com/refkxh)
+* [zzq2000](https://github.com/zzq2000)
+* [willipwk](https://github.com/willipwk)
+* [whh-buaa](https://github.com/whh-buaa)
+* [Forever518](https://github.com/Forever518)
